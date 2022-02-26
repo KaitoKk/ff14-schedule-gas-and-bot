@@ -7,12 +7,28 @@
 **/
 const onOpen = () => {
   const spreadsheet = SpreadsheetApp.getActiveSpreadsheet()
-    const entries = [{
+    const discordEntries = [{
           functionName: "announceActiveDay",
           name: "Discordに報告"
         }
       ]
-    spreadsheet.addMenu("Discord", entries)
+    spreadsheet.addMenu("Discord", discordEntries)
+
+    const triggerEntries = [
+      {
+        functionName: "setSlideStartDayTrigger",
+        name: "開始日を変更するトリガーをセット"
+      },
+      {
+        functionName: "setReminderTrigger",
+        name: "リマインダのトリガーをセット"
+      },
+      {
+        functionName: "setAnnounceTrigger",
+        name: "活動日アナウンスのトリガーをセット"
+      }
+    ]
+    spreadsheet.addMenu("gasトリガー", triggerEntries)
 }
 
 /*
@@ -43,4 +59,16 @@ const shiftActiveDayCells = (sheet, row, column, numrows, numcolumns) => {
   lastActiveDays.setValues(futureActiveDaysValues) 
 
   // TODO: 活動日の記録を保存したいよね？
+}
+
+const setSlideStartDayTrigger = () => {
+  ScriptApp.newTrigger("changeStartDate").timeBased().onWeekDay(ScriptApp.WeekDay.SATURDAY).atHour(6).create()
+}
+
+const setReminderTrigger = () => {
+  ScriptApp.newTrigger("announceReminder").timeBased().onWeekDay(ScriptApp.WeekDay.SUNDAY).atHour(10).create()
+}
+
+const setAnnounceTrigger = () => {
+  ScriptApp.newTrigger("announceActiveDay").timeBased().onWeekDay(ScriptApp.WeekDay.MONDAY).atHour(8).create()
 }
