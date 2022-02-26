@@ -4,8 +4,8 @@ class DiscordBot {
     this.username = username
     this.channel = channel
     
-    this.TOKEN = "e1U3UnAR21qsZU1S0F4TLr0tghw6-aXx9HYl_sHYYbxvyITPwGVWKfT2patljqRd_BB_"
-    this.ID = "945727366653677638"
+    this.TOKEN = ""
+    this.ID = ""
   }
 
   sendMessage(message) {
