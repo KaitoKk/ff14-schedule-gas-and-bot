@@ -15,7 +15,7 @@ const myFunction = () => {
 **/
 const announceReminder = () => {
   const today = new Date()
-  const dayOfWeek = dayOfWeek(today)
+  const dayOfWeek = getDayOfWeek(today)
   
   // const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
   // const sheet = spreadsheet.getSheetByName("スケジュール");
@@ -32,8 +32,6 @@ const announceReminder = () => {
 const announceActiveDay = () => {//週の活動日をお知らせ
   const spreadsheet = SpreadsheetApp.getActiveSpreadsheet()
   const sheet = spreadsheet.getSheetByName("スケジュール")
-  
-  const today = dayOfWeek();
   
   const scheduleRange = sheet.getRange(5, 6, 5, 7)
     
@@ -82,7 +80,7 @@ const isActive = (num) => { // 活動できるかどうか
   return num >= 8 ? true : false
 }
 
-const dayOfWeek = (date) => { // 指定の日付の曜日を返す
+const getDayOfWeek = (date) => { // 指定の日付の曜日を返す
   const daysOfWeek = [ "日曜日", "月曜日", "火曜日", "水曜日", "木曜日", "金曜日", "土曜日" ]
   return daysOfWeek[date.getDay()]
 }
