@@ -5,7 +5,10 @@
 const myFunction = () => {
   const message = "なんか確認できるファンクション"
   const bot = new DiscordBot("確認システム", "#general")
-  bot.sendMessage(message)
+
+  const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+
+  bot.sendMessage(message, spreadsheet.getUrl())
 }
 
 /**
@@ -41,9 +44,10 @@ const announceActiveDay = () => {//週の活動日をお知らせ
   
   const message = createMessage(activeTime, timeRange)
   
-  Logger.log(message);
-  
-  sendDiscord(message);
+  Logger.log(message)
+
+  const bot = new DiscordBot("予定管理システム", "#general")
+  bot.sendMessage(message)
 }
 
 const buildMessage = (activeTime, timeText) => {
