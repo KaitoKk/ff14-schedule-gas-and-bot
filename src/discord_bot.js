@@ -1,11 +1,13 @@
 class DiscordBot {
 
-  constructor(username, channel) {
+  constructor(username, channel, token_sheet) {
     this.username = username
     this.channel = channel
-    
-    this.TOKEN = ""
-    this.ID = ""
+
+
+    const token = token_sheet.getRange("B1:B2").getValues()
+    this.ID = token[0][0]
+    this.TOKEN = token[1][0]
   }
 
   sendMessage(message) {
@@ -21,7 +23,7 @@ class DiscordBot {
       },
       "muteHttpExceptions": true
     }
-    
+
     const result = UrlFetchApp.fetch(url, params)
     Logger.log(result)
   }
