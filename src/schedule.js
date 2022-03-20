@@ -6,7 +6,7 @@ const TOKEN_SHEET = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Token"
 
 const myFunction = () => {
   const message = "なんか確認できるファンクション"
-    const bot = new DiscordBot("確認システム", "#general", TOKEN_SHEET)
+  const bot = new DiscordBot("確認システム", "#general", TOKEN_SHEET)
   bot.sendMessage(message)
 }
 
