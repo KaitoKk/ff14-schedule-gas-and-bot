@@ -2,13 +2,14 @@
 主にディスコードに今週のスケジュールメッセージを送信する処理をまとめる
 */
 
+const TOKEN_SHEET = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Token")
+
 const myFunction = () => {
   const message = "なんか確認できるファンクション"
-  const bot = new DiscordBot("確認システム", "#general")
-
   const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
-
+  const bot = new DiscordBot("確認システム", "#general", TOKEN_SHEET)
   bot.setEmbeded(spreadsheet.getUrl()).sendMessage(message)
+  bot.sendMessage(message)
 }
 
 /**
