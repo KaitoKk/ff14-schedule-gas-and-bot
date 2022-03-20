@@ -8,7 +8,7 @@ const myFunction = () => {
 
   const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
 
-  bot.sendMessage(message, spreadsheet.getUrl())
+  bot.setEmbeded(spreadsheet.getUrl()).sendMessage(message)
 }
 
 /**
@@ -42,20 +42,18 @@ const announceActiveDay = () => {//週の活動日をお知らせ
   
   const timeRange = sheet.getRange(5,3,5)
   
-  const message = createMessage(activeTime, timeRange)
-  
-  Logger.log(message)
+  const messageEmbed = buildMessageEmbed(activeTime, timeRange)
 
   const bot = new DiscordBot("予定管理システム", "#general")
-  bot.sendMessage(message)
+  bot.setEmbed(messageEmbed).sendMessage(message)
 }
 
-const buildMessage = (activeTime, timeText) => {
+const buildMessageEmbed = (activeTime, timeText) => {
   
-  const preMessage = "今週の活動時間についてお知らせします(現在時点)"
+  const description = "今週の活動時間についてお知らせします(現在時点)"
 
   const activeMessage = activeTime.map( timeIndex => { // TODO: 終了時間も入れたい？
-    return timeIndex == -1 ? "なし" : `${timeText[timeIndex][0]}` 
+    return timeIndex == -1 ? "なし" : `${timeText[timeIndex][0]}`
   })
 
   return activeMessage.unshift(preMessage).join("\n")

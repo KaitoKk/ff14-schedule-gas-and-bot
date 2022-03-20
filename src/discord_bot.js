@@ -1,5 +1,7 @@
 class DiscordBot {
 
+  embeds = []
+
   constructor(username, channel) {
     this.username = username
     this.channel = channel
@@ -19,14 +21,10 @@ class DiscordBot {
       "parse": "full"
     }
 
-    if(sheet_url !== null) {
-      payload["embeds"] = [
-        this._buildUrlEmbedObject(
-          sheet_title,
-          sheet_url
-        )
-      ]
+    if(this.embeds.length !== 0) {
+      payload["embeds"] = this.embeds
     }
+
     const params = {
       "method": "POST",
       "contentType": "application/json",
@@ -38,11 +36,39 @@ class DiscordBot {
     Logger.log(result)
   }
 
+  setEmbed(title = "スプレッドシート", url = null, description = null, fields = {}) {
+    if(sheet_url !== null) {
+      this.embeds.push(
+        this._buildUrlEmbedObject(
+          title,
+          url
+        )
+      )
+    } else {
+      this.embeds.push(
+        this._buildFieldEmbedObject(
+          title,
+          description,
+          fields
+        )
+      )
+    }
+
+  }
+
   _buildUrlEmbedObject(title, url) {
     return {
       title,
       url,
       color: "6412288"
+    }
+  }
+
+  _buildFieldEmbedObject(title, description, fields) {
+    return {
+      title,
+      description,
+      fields
     }
   }
 }
