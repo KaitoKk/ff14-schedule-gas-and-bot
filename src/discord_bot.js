@@ -1,15 +1,14 @@
 class DiscordBot {
 
-  embeds = []
-
   constructor(username, channel, token_sheet) {
     this.username = username
     this.channel = channel
 
-
     const token = token_sheet.getRange("B1:B2").getValues()
     this.ID = token[0][0]
     this.TOKEN = token[1][0]
+
+    this.embeds = []
   }
 
   sendMessage(message, sheet_url = null, sheet_title = "スプレッドシート") {
@@ -38,7 +37,7 @@ class DiscordBot {
     Logger.log(result)
   }
 
-  setEmbed(title = "スプレッドシート", url = null, description = null, fields = {}) {
+  setEmbed(title = "", url = null, description = null, fields = {}) {
     if(sheet_url !== null) {
       this.embeds.push(
         this._buildUrlEmbedObject(
