@@ -46,13 +46,13 @@ const announceActiveDay = () => {//週の活動日をお知らせ
   const timeText = sheet.getRange(5,3,5).getValues()
   const dateText = sheet.getRange("F4:L4").getValues()
 
+  const message = "メッセージだよ"
   const messageFields = buildMessageFields(activeTime, timeText, dateText[0])
 
   const bot = new DiscordBot("予定管理システム", "#general", TOKEN_SHEET)
-  bot
-    .setEmbed("活動予定", null, "今週の活動時間についてお知らせします(現在時点)", messageFields)
-    .setEmbeded("スプレッドシートはこちら", SHEET_URL)
-    .sendMessage(message)
+  bot.setEmbed("活動予定", null, "今週の活動時間についてお知らせします(現在時点)", messageFields)
+  bot.setEmbed("スプレッドシートはこちら", SHEET_URL)
+  bot.sendMessage(message)
 }
 
 const buildMessageFields = (activeTime, timeText, dateText) => {
@@ -99,5 +99,5 @@ const getDayOfWeek = (date) => { // 指定の日付の曜日を返す
 }
 
 const transpose = (array) => {
-  return array[0].map((_, c) => a.map(r => r[c]))
+  return array[0].map((_, c) => array.map(r => r[c]))
 }

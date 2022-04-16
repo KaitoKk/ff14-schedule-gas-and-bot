@@ -37,8 +37,8 @@ class DiscordBot {
     Logger.log(result)
   }
 
-  setEmbed(title = "", url = null, description = null, fields = {}) {
-    if(sheet_url !== null) {
+  setEmbed(title = "", url = null, description = null, fields = []) {
+    if(url !== null) {
       this.embeds.push(
         this._buildUrlEmbedObject(
           title,
@@ -65,11 +65,18 @@ class DiscordBot {
     }
   }
 
-  _buildFieldEmbedObject(title, description, fields) {
-    return {
+  _buildFieldEmbedObject(title, description, fields = []) {
+    const embed = {
       title,
       description,
-      fields
+      color: "0x00FFFF"
     }
+    if (fields.length !== 0) {
+      embed["fields"] = fields.map( (field, index) => {
+        field["inline"] = true
+        return field
+      })
+    }
+    return embed
   }
 }
