@@ -44,10 +44,11 @@ const changeStartDate = () => {
   const dateCell = sheet.getRange(2,5)
   dateCell.setValue(today)
   
-  shiftActiveDayCells(sheet, 15, 11, 40, 14);
+  shiftActiveDayCells(sheet, 18, 11, 72, 14);
 }
 
 
+// 日付をずらす
 const shiftActiveDayCells = (sheet, row, column, numrows, numcolumns) => {
   const futureActiveDays = sheet.getRange(row, column, numrows, numcolumns)
   
