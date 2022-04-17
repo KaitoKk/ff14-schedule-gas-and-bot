@@ -18,7 +18,7 @@ const myFunction = () => {
 const announceReminder = () => {
   const today = new Date()
   const dayOfWeek = getDayOfWeek(today)
-  
+
   // const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
   // const sheet = spreadsheet.getSheetByName("スケジュール");
   // TODO: だれが入力していないかも確認したいね
@@ -34,26 +34,26 @@ const announceReminder = () => {
 const announceActiveDay = () => {//週の活動日をお知らせ
   const spreadsheet = SpreadsheetApp.getActiveSpreadsheet()
   const sheet = spreadsheet.getSheetByName("スケジュール")
-  
-  const scheduleRange = sheet.getRange(5, 6, 5, 7)
-    
+
+  const scheduleRange = sheet.getRange(5, 6, 8, 7)
+
   const activeTime = checkActive(scheduleRange)
-  
-  const timeRange = sheet.getRange(5,3,5)
-  
-  const message = createMessage(activeTime, timeRange)
-  
+
+  const timeRange = sheet.getRange(5,3,8)
+
+  const message = buildMessage(activeTime, timeRange)
+
   Logger.log(message);
-  
+
   sendDiscord(message);
 }
 
 const buildMessage = (activeTime, timeText) => {
-  
+
   const preMessage = "今週の活動時間についてお知らせします(現在時点)"
 
   const activeMessage = activeTime.map( timeIndex => { // TODO: 終了時間も入れたい？
-    return timeIndex == -1 ? "なし" : `${timeText[timeIndex][0]}` 
+    return timeIndex == -1 ? "なし" : `${timeText[timeIndex][0]}`
   })
 
   return activeMessage.unshift(preMessage).join("\n")
