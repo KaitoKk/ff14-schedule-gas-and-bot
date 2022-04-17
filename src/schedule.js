@@ -22,7 +22,8 @@ const announceReminder = () => {
   const today = new Date()
   const dayOfWeek = getDayOfWeek(today)
 
-  // Const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+
+  // const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
   // const sheet = spreadsheet.getSheetByName("スケジュール");
   // TODO: だれが入力していないかも確認したいね
 
@@ -39,11 +40,11 @@ const announceActiveDay = () => {//週の活動日をお知らせ
   const spreadsheet = SpreadsheetApp.getActiveSpreadsheet()
   const sheet = spreadsheet.getSheetByName("スケジュール")
 
-  const scheduleRange = sheet.getRange(5, 6, 5, 7)
+  const scheduleRange = sheet.getRange(5, 6, 8, 7)
 
   const activeTime = checkActive(scheduleRange)
 
-  const timeText = sheet.getRange(5,3,5).getValues()
+  const timeText = sheet.getRange(5,3,8).getValues()
   const dateText = sheet.getRange("F4:L4").getValues()
 
   const message = "メッセージだよ"
