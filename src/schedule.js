@@ -9,7 +9,7 @@ const myFunction = () => {
   const message = "なんか確認できるファンクション"
   const spreadsheet = SpreadsheetApp.getActiveSpreadsheet()
   const bot = new DiscordBot("確認システム", "#general", TOKEN_SHEET)
-  bot.setEmbed("スプレッドシートはこちら", SHEET_URL).sendMessage(message)
+  bot.setEmbed("スプレッドシートはこちら", SHEET_URL)
   bot.sendMessage(message)
 }
 
