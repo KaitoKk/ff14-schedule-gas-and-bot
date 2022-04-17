@@ -35,13 +35,13 @@ const announceActiveDay = () => {//週の活動日をお知らせ
   const spreadsheet = SpreadsheetApp.getActiveSpreadsheet()
   const sheet = spreadsheet.getSheetByName("スケジュール")
 
-  const scheduleRange = sheet.getRange(5, 6, 5, 7)
+  const scheduleRange = sheet.getRange(5, 6, 8, 7)
 
   const activeTime = checkActive(scheduleRange)
 
-  const timeRange = sheet.getRange(5,3,5)
+  const timeRange = sheet.getRange(5,3,8)
 
-  const message = createMessage(activeTime, timeRange)
+  const message = buildMessage(activeTime, timeRange)
 
   Logger.log(message);
 
