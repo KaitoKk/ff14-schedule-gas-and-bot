@@ -51,7 +51,7 @@ const announceActiveDay = () => {//週の活動日をお知らせ
   const messageFields = buildMessageFields(activeTime, timeText, dateText[0])
 
   const bot = new DiscordBot("予定管理システム", "#general", TOKEN_SHEET)
-  bot.setEmbed("活動予定", null, "今週の活動時間についてお知らせします(現在時点)", messageFields)
+  bot.setEmbed("活動予定", null, null, messageFields)
   bot.setEmbed("スプレッドシートはこちら", SHEET_URL)
   bot.sendMessage(message)
 }

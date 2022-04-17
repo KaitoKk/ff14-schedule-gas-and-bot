@@ -68,8 +68,7 @@ class DiscordBot {
   _buildFieldEmbedObject(title, description, fields = []) {
     const embed = {
       title,
-      description,
-      color: "0x00FFFF"
+      description
     }
     if (fields.length !== 0) {
       embed["fields"] = fields.map( (field, index) => {
