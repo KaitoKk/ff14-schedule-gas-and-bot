@@ -9,7 +9,7 @@ const myFunction = () => {
   const message = "なんか確認できるファンクション"
   const spreadsheet = SpreadsheetApp.getActiveSpreadsheet()
   const bot = new DiscordBot("確認システム", "#general", TOKEN_SHEET)
-  bot.setEmbeded("スプレッドシートはこちら", SHEET_URL).sendMessage(message)
+  bot.setEmbed("スプレッドシートはこちら", SHEET_URL).sendMessage(message)
   bot.sendMessage(message)
 }
 
@@ -29,7 +29,7 @@ const announceReminder = () => {
 
   const message = `今日は${dayOfWeek}だよ\n予定をスプレッドシートに入れてね！` // TODO: スプレッドシートのリンクも貼りたいね
   const bot = new DiscordBot("予定管理システム", "#general", TOKEN_SHEET)
-  bot.setEmbeded("スプレッドシートはこちら", SHEET_URL)
+  bot.setEmbed("スプレッドシートはこちら", SHEET_URL)
   bot.sendMessage(message)
 }
 
@@ -47,7 +47,7 @@ const announceActiveDay = () => {//週の活動日をお知らせ
   const timeText = sheet.getRange(5,3,8).getValues()
   const dateText = sheet.getRange("F4:L4").getValues()
 
-  const message = "メッセージだよ"
+  const message = "今週の活動時間についてお知らせします(現在時点)"
   const messageFields = buildMessageFields(activeTime, timeText, dateText[0])
 
   const bot = new DiscordBot("予定管理システム", "#general", TOKEN_SHEET)
