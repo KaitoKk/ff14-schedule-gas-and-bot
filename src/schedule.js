@@ -41,8 +41,9 @@ const announceActiveDay = () => {//週の活動日をお知らせ
   const sheet = spreadsheet.getSheetByName("スケジュール")
 
   const scheduleRange = sheet.getRange(5, 6, 8, 7)
+  const skipFlagRange = sheet.getRange("F13:L13")
 
-  const activeTime = checkActive(scheduleRange)
+  const activeTime = checkActive(scheduleRange, skipFlagRange)
 
   const timeText = sheet.getRange(5,3,8).getValues()
   const dateText = sheet.getRange("F4:L4").getValues()
@@ -61,7 +62,14 @@ const buildMessageFields = (activeTime, timeText, dateText) => {
   const activeMessage = activeTime.map( (timeIndex, i) => { // TODO: 終了時間も入れたい？
     const date = new Date(dateText[i])
     const name = `${date.getMonth()+1}/${date.getDate()}(${getDayOfWeek(date)})`
-    const value = timeIndex == -1 ? "なし" : `${timeText[timeIndex][0]}`
+    // const value = timeIndex == -1 ? "なし" : `${timeText[timeIndex][0]}`
+    const message = (index) => {
+      if (index == -1) return "なし"
+      else if (index == -2) return "活動スキップ"
+      else return `${timeText[index][0]}`
+    }
+    const value = message(timeIndex)
+
     return {
       name,
       value
@@ -71,10 +79,11 @@ const buildMessageFields = (activeTime, timeText, dateText) => {
   return activeMessage
 }
 
-const checkActive = (range) => { // 活動可能な日をチェック
+const checkActive = (range, skipFlagRange) => { // 活動可能な日をチェック
   const values = transpose(range.getValues())
+  const skipFlags = skipFlagRange.getValues()[0]
 
-  const activeTime = values.map( startHours => {
+  const activeTime = values.map( (startHours, index) => {
     let startHour = -1
     let isBreak = false
     startHours.forEach( (activeNum, index) => {
@@ -84,6 +93,8 @@ const checkActive = (range) => { // 活動可能な日をチェック
         isBreak = true
       }
     })
+
+    if (skipFlags[index] == true) startHour = -2
     return startHour
   })
 
