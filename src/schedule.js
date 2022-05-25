@@ -60,7 +60,7 @@ const buildMessageFields = (activeTime, timeText, dateText) => {
 
   const activeMessage = activeTime.map( (timeIndex, i) => { // TODO: 終了時間も入れたい？
     const date = new Date(dateText[i])
-    const name = `${date.getMonth()+1}/${date.getDate()}`
+    const name = `${date.getMonth()+1}/${date.getDate()}(${getDayOfWeek(date)})`
     const value = timeIndex == -1 ? "なし" : `${timeText[timeIndex][0]}`
     return {
       name,
