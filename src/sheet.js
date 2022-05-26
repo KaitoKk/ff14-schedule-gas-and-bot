@@ -44,7 +44,11 @@ const changeStartDate = () => {
   const dateCell = sheet.getRange(2,5)
   dateCell.setValue(today)
 
+  const activityRange = sheet.getRange("C3:J13")
+  storeActivityLog(activityRange)
+
   shiftActiveDayCells(sheet, 18, 11, 72, 14);
+  cleanSkipFlag(sheet)
 }
 
 
@@ -60,6 +64,28 @@ const shiftActiveDayCells = (sheet, row, column, numrows, numcolumns) => {
   lastActiveDays.setValues(futureActiveDaysValues)
 
   // TODO: 活動日の記録を保存したいよね？
+}
+
+const storeActivityLog = (activityRange) => {
+  const spreadsheet = SpreadsheetApp.getActiveSpreadsheet()
+  const logSheet = spreadsheet.getSheetByName("活動履歴")
+
+  const lastRow = logSheet.getLastRow()
+  const writtenRange = logSheet.getRange(`A${lastRow+1}:H${lastRow+11}`)
+  activityRange.copyTo(writtenRange, {fotmatOnly: true})
+  activityRange.copyTo(writtenRange, {contentsOnly: true})
+}
+
+const cleanSkipFlag = (sheet) => {
+  const skipFlagRange = sheet.getRange("D13:L13")
+  let flagValues = skipFlagRange.getValues()
+  const newFlagValues = flagValues[0].map((e, i) => {
+    if (i == 0 || i == 1) {
+      return flagValues[0][flagValues[0].length - 2 + i]
+    }
+    return false
+  })
+  skipFlagRange.setValues([newFlagValues])
 }
 
 const setSlideStartDayTrigger = () => {
