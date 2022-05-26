@@ -44,6 +44,9 @@ const changeStartDate = () => {
   const dateCell = sheet.getRange(2,5)
   dateCell.setValue(today)
 
+  const activityRange = sheet.getRange("C3:J13")
+  storeActivityLog(activityRange)
+
   shiftActiveDayCells(sheet, 18, 11, 72, 14);
 }
 
@@ -60,6 +63,16 @@ const shiftActiveDayCells = (sheet, row, column, numrows, numcolumns) => {
   lastActiveDays.setValues(futureActiveDaysValues)
 
   // TODO: 活動日の記録を保存したいよね？
+}
+
+const storeActivityLog = (activityRange) => {
+  const spreadsheet = SpreadsheetApp.getActiveSpreadsheet()
+  const logSheet = spreadsheet.getSheetByName("活動履歴")
+
+  const lastRow = logSheet.getLastRow()
+  const writtenRange = logSheet.getRange(`A${lastRow+1}:H${lastRow+11}`)
+  activityRange.copyTo(writtenRange, {fotmatOnly: true})
+  activityRange.copyTo(writtenRange, {contentsOnly: true})
 }
 
 const setSlideStartDayTrigger = () => {
