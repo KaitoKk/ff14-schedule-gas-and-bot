@@ -48,6 +48,7 @@ const changeStartDate = () => {
   storeActivityLog(activityRange)
 
   shiftActiveDayCells(sheet, 18, 11, 72, 14);
+  cleanSkipFlag(sheet)
 }
 
 
@@ -73,6 +74,18 @@ const storeActivityLog = (activityRange) => {
   const writtenRange = logSheet.getRange(`A${lastRow+1}:H${lastRow+11}`)
   activityRange.copyTo(writtenRange, {fotmatOnly: true})
   activityRange.copyTo(writtenRange, {contentsOnly: true})
+}
+
+const cleanSkipFlag = (sheet) => {
+  const skipFlagRange = sheet.getRange("D13:L13")
+  let flagValues = skipFlagRange.getValues()
+  const newFlagValues = flagValues[0].map((e, i) => {
+    if (i == 0 || i == 1) {
+      return flagValues[0][flagValues[0].length - 2 + i]
+    }
+    return false
+  })
+  skipFlagRange.setValues([newFlagValues])
 }
 
 const setSlideStartDayTrigger = () => {
