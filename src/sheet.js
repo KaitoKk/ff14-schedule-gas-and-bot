@@ -41,11 +41,11 @@ const changeStartDate = () => {
   const spreadsheet = SpreadsheetApp.getActiveSpreadsheet()
   const sheet = spreadsheet.getSheetByName("スケジュール")
 
-  const dateCell = sheet.getRange(2,5)
-  dateCell.setValue(today)
-
   const activityRange = sheet.getRange("C3:J13")
   storeActivityLog(activityRange)
+
+  const dateCell = sheet.getRange(2,5)
+  dateCell.setValue(today)
 
   shiftActiveDayCells(sheet, 18, 11, 72, 14);
   cleanSkipFlag(sheet)
